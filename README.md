@@ -29,9 +29,6 @@ The application allows you to get, add, edit, delete elements in the pet resourc
 ### Generate the Laravel application key:
     php artisan key:generate
 
-### Run database migrations:
-    php artisan migrate
-
 ### Start the development server:
     php artisan serve
 
