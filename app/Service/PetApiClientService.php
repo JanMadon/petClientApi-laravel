@@ -9,12 +9,18 @@ use Illuminate\Support\Facades\Log;
 class PetApiClientService
 {
 
-    public string $baseUrl = "https://petstore.swagger.io/v2/pet";
+    public string $BASE_URL;
+
+    public function __construct()
+    {
+        $this->BASE_URL = env('API_BASE_URL', 'https://petstore.swagger.io/v2/pet');
+    }
+
 
     public function get(int $petId): array
     {
         try {
-            $response = Http::get("$this->baseUrl/$petId");
+            $response = Http::get("$this->BASE_URL/$petId");
 
             if ($response->ok()) {
                 $data = ['pet' => $response->json()];
@@ -37,9 +43,9 @@ class PetApiClientService
 
         try {
             if ($type === 'create') {
-                $response = Http::post($this->baseUrl, $data);
+                $response = Http::post($this->BASE_URL, $data);
             } elseif ($type === 'update') {
-                $response = Http::put($this->baseUrl, $data);
+                $response = Http::put($this->BASE_URL, $data);
             }
             if ($response->ok()) {
                 $data = [
@@ -64,7 +70,7 @@ class PetApiClientService
     public function delete(int $petId):array
     {
         try {
-            $response = Http::delete("$this->baseUrl/$petId");
+            $response = Http::delete("$this->BASE_URL/$petId");
 
             if($response->ok()){
                 $data = ['success' => $response->ok()];
